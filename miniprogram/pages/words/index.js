@@ -28,6 +28,20 @@ Page({
     });
   },
 
+  showSearchTip() {
+    wx.showToast({
+      title: "搜索会在后续版本加入",
+      icon: "none",
+    });
+  },
+
+  showMoreTip() {
+    wx.showToast({
+      title: "更多功能暂未开放",
+      icon: "none",
+    });
+  },
+
   openWord(event) {
     const { type } = event.currentTarget.dataset;
     if (type !== "user") {

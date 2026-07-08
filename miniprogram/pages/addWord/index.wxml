@@ -8,11 +8,13 @@
   <view class="form-card">
     <view class="field">
       <view class="field-label">俄语单词 <text>*</text></view>
-      <input class="rm-input" placeholder="请输入俄语单词" placeholder-class="rm-input-placeholder" data-field="russian_word" bindinput="onInput" />
+      <input class="rm-input {{errors.russian_word ? 'error' : ''}}" placeholder="请输入俄语单词" placeholder-class="rm-input-placeholder" data-field="russian_word" bindinput="onInput" />
+      <view class="field-error" wx:if="{{errors.russian_word}}">{{errors.russian_word}}</view>
     </view>
     <view class="field">
       <view class="field-label">中文意思 <text>*</text></view>
-      <input class="rm-input" placeholder="请输入中文意思" placeholder-class="rm-input-placeholder" data-field="chinese_meaning" bindinput="onInput" />
+      <input class="rm-input {{errors.chinese_meaning ? 'error' : ''}}" placeholder="请输入中文意思" placeholder-class="rm-input-placeholder" data-field="chinese_meaning" bindinput="onInput" />
+      <view class="field-error" wx:if="{{errors.chinese_meaning}}">{{errors.chinese_meaning}}</view>
     </view>
     <view class="field">
       <view class="field-label">词性（可选）</view>
@@ -28,5 +30,7 @@
     </view>
   </view>
 
-  <button class="rm-primary-button save-button" bindtap="saveWord">保存</button>
+  <button class="rm-primary-button save-button {{saving ? 'disabled' : ''}}" loading="{{saving}}" bindtap="saveWord">
+    {{saving ? "保存中..." : "保存"}}
+  </button>
 </view>

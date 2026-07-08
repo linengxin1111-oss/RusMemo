@@ -2,8 +2,8 @@
   <view class="words-header">
     <view class="rm-title">单词本</view>
     <view class="header-actions">
-      <view class="rm-icon-button">⌕</view>
-      <view class="rm-icon-button">⋯</view>
+      <view class="rm-icon-button" bindtap="showSearchTip">⌕</view>
+      <view class="rm-icon-button" bindtap="showMoreTip">⋯</view>
     </view>
   </view>
 

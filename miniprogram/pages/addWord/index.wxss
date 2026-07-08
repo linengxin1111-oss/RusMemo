@@ -25,6 +25,12 @@
   color: #f28b85;
 }
 
+.field-error {
+  margin-top: 10rpx;
+  color: #c65a55;
+  font-size: 24rpx;
+}
+
 .save-button {
   margin-top: 40rpx;
 }

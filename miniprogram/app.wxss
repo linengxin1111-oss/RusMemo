@@ -118,6 +118,11 @@ button::after {
   color: #ffffff;
 }
 
+.rm-primary-button.disabled {
+  background: #f4efe8;
+  color: #b0a99f;
+}
+
 .rm-secondary-button {
   background: #f4efe8;
   color: #111827;
@@ -161,6 +166,12 @@ button::after {
 
 .rm-input-placeholder {
   color: #b0a99f;
+}
+
+.rm-input.error,
+.rm-textarea.error {
+  border-color: #f28b85;
+  background: rgba(242, 139, 133, 0.06);
 }
 
 .rm-tag {

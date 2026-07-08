@@ -61,7 +61,7 @@
     <button class="rm-primary-button half" bindtap="checkAnswer">检查</button>
   </view>
 
-  <button class="rm-primary-button next-button" wx:elif="{{!checked}}" bindtap="checkAnswer">
+  <button class="rm-primary-button next-button {{!selectedKey && question.type === 'choice' ? 'disabled' : ''}}" wx:elif="{{!checked}}" bindtap="checkAnswer">
     检查
   </button>
 
