@@ -10,8 +10,8 @@
     <button class="rm-primary-button login-button" loading="{{loading}}" bindtap="goHome">
       {{loading ? "登录中..." : "微信一键登录"}}
     </button>
-    <view class="agreement">
-      <view class="radio"></view>
+    <view class="agreement" bindtap="toggleAgreement">
+      <view class="radio {{agreed ? 'checked' : ''}}">{{agreed ? "✓" : ""}}</view>
       <text>我已阅读并同意《用户协议》和《隐私政策》</text>
     </view>
   </view>

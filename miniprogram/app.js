@@ -2,6 +2,7 @@ App({
   globalData: {
     // Fill this with your CloudBase environment ID after creating the cloud environment.
     env: "cloud1-d3gk689dk6dc1c4dc",
+    user: null,
   },
 
   onLaunch() {

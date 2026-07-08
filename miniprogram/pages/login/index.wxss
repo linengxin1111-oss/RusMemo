@@ -70,10 +70,21 @@
 }
 
 .radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 24rpx;
   height: 24rpx;
   margin-right: 12rpx;
   border: 2rpx solid #cfc8bf;
   border-radius: 50%;
   background: #ffffff;
+  color: #ffffff;
+  font-size: 18rpx;
+  line-height: 1;
+}
+
+.radio.checked {
+  border-color: #a5c7e6;
+  background: #a5c7e6;
 }
