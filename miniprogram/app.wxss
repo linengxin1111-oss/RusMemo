@@ -28,8 +28,8 @@ button::after {
 
 .rm-page {
   min-height: 100vh;
-  padding: calc(64rpx + constant(safe-area-inset-top)) 48rpx 48rpx;
-  padding: calc(64rpx + env(safe-area-inset-top)) 48rpx 48rpx;
+  padding: calc(104rpx + constant(safe-area-inset-top)) 48rpx 48rpx;
+  padding: calc(104rpx + env(safe-area-inset-top)) 48rpx 48rpx;
   background: #faf7f2;
 }
 
