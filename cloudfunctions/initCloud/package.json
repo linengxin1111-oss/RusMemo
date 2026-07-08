@@ -1,0 +1,9 @@
+{
+  "name": "initCloud",
+  "version": "1.0.0",
+  "description": "Initialize RusMemo CloudBase resources.",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}
