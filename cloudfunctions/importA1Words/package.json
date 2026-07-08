@@ -1,0 +1,9 @@
+{
+  "name": "importA1Words",
+  "version": "1.0.0",
+  "description": "Import RusMemo A1 system words.",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}
