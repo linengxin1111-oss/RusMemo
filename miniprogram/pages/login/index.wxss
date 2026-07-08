@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-  padding: 168rpx 48rpx 64rpx;
+  padding: calc(132rpx + constant(safe-area-inset-top)) 48rpx calc(48rpx + constant(safe-area-inset-bottom));
+  padding: calc(132rpx + env(safe-area-inset-top)) 48rpx calc(48rpx + env(safe-area-inset-bottom));
   background: #faf7f2;
 }
 
