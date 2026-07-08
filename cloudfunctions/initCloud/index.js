@@ -6,13 +6,18 @@ cloud.init({
 
 const db = cloud.database();
 
-const COLLECTIONS = ["user", "word", "word_progress", "study_log"];
+const COLLECTIONS = [
+  { name: "user", description: "用户信息" },
+  { name: "word", description: "系统词库和用户自定义词" },
+  { name: "word_progress", description: "用户单词学习进度" },
+  { name: "study_log", description: "每日学习记录" },
+];
 
-async function ensureCollection(name) {
+async function ensureCollection(collection) {
   try {
-    await db.createCollection(name);
+    await db.createCollection(collection.name);
     return {
-      name,
+      ...collection,
       created: true,
     };
   } catch (error) {
@@ -21,7 +26,7 @@ async function ensureCollection(name) {
 
     if (message.includes("collection exists") || errMsg.includes("collection exists")) {
       return {
-        name,
+        ...collection,
         created: false,
       };
     }
@@ -34,8 +39,8 @@ exports.main = async () => {
   const wxContext = cloud.getWXContext();
   const collections = [];
 
-  for (const name of COLLECTIONS) {
-    collections.push(await ensureCollection(name));
+  for (const collection of COLLECTIONS) {
+    collections.push(await ensureCollection(collection));
   }
 
   return {

@@ -28,6 +28,7 @@ exports.main = async () => {
     appid: wxContext.APPID,
     unionid: wxContext.UNIONID || "",
     last_login_at: now,
+    updated_at: now,
   };
 
   const existing = await userCollection
@@ -44,6 +45,7 @@ exports.main = async () => {
         appid: wxContext.APPID,
         unionid: wxContext.UNIONID || user.unionid || "",
         last_login_at: now,
+        updated_at: now,
       },
     });
 
