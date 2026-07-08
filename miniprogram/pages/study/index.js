@@ -1,44 +1,10 @@
-const questions = [
-  {
-    type: "choice",
-    prompt: "请选择正确的中文意思",
-    russian: "добрый",
-    meta: "[daˈbrij] · 形容词",
-    answer: "B",
-    choices: [
-      { key: "A", text: "快乐的" },
-      { key: "B", text: "善良的" },
-      { key: "C", text: "忙碌的" },
-      { key: "D", text: "大的" },
-    ],
-  },
-  {
-    type: "input",
-    prompt: "请输入俄语",
-    chinese: "谢谢",
-    hint: "спасибо",
-    answer: "спасибо",
-  },
-  {
-    type: "choice",
-    prompt: "请选择正确的中文意思",
-    russian: "пожалуйста",
-    meta: "副词 · 礼貌用语",
-    answer: "C",
-    choices: [
-      { key: "A", text: "早上好" },
-      { key: "B", text: "没关系" },
-      { key: "C", text: "请；不客气" },
-      { key: "D", text: "再见" },
-    ],
-  },
-];
+const { studyQuestions } = require("../../data/mock");
 
 Page({
   data: {
     currentIndex: 0,
-    total: questions.length,
-    question: questions[0],
+    total: studyQuestions.length,
+    question: studyQuestions[0],
     selectedKey: "",
     inputValue: "",
     checked: false,
@@ -116,7 +82,7 @@ Page({
 
   nextQuestion() {
     const nextIndex = this.data.currentIndex + 1;
-    if (nextIndex >= questions.length) {
+    if (nextIndex >= studyQuestions.length) {
       wx.showToast({
         title: "今天已经完成啦",
         icon: "none",
@@ -131,13 +97,13 @@ Page({
   renderQuestion(index) {
     this.setData({
       currentIndex: index,
-      question: questions[index],
+      question: studyQuestions[index],
       selectedKey: "",
       inputValue: "",
       checked: false,
       isCorrect: false,
       feedback: "",
-      progress: Math.round(((index + 1) / questions.length) * 100),
+      progress: Math.round(((index + 1) / studyQuestions.length) * 100),
     });
   },
 });

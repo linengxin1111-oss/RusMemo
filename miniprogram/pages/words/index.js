@@ -1,10 +1,4 @@
-const words = [
-  { russian: "добрый", meaning: "善良的", tag: "A1 基础词", type: "system" },
-  { russian: "спасибо", meaning: "谢谢", tag: "A1 基础词", type: "system" },
-  { russian: "пожалуйста", meaning: "不客气；请", tag: "A1 基础词", type: "system" },
-  { russian: "извините", meaning: "对不起；打扰了", tag: "A1 基础词", type: "system" },
-  { russian: "метро", meaning: "地铁", tag: "我的单词", type: "user" },
-];
+const { words } = require("../../data/mock");
 
 Page({
   data: {
