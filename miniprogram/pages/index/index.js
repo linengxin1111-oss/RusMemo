@@ -1,72 +1,32 @@
-const app = getApp();
-
 Page({
   data: {
-    env: "",
-    loading: false,
-    status: "pending",
-    message: "请先在 app.js 中填写云环境 ID，然后上传 initCloud 云函数。",
-    openid: "",
-    collections: [],
+    stats: [
+      { label: "待复习", value: 18 },
+      { label: "新词", value: 12 },
+      { label: "已掌握", value: 156 },
+    ],
+    entries: [
+      { title: "今日进度", desc: "A1 俄语基础", meta: "26%", tone: "primary", url: "/pages/study/index" },
+      { title: "错词本", desc: "需要复习 24 个", meta: "去复习", tone: "error", url: "/pages/wrongWords/index" },
+      { title: "单词本", desc: "已收录 200 个", meta: "查看", tone: "success", url: "/pages/words/index" },
+    ],
   },
 
-  onLoad() {
-    this.setData({
-      env: app.globalData.env,
-      status: app.globalData.env ? "ready" : "pending",
-      message: app.globalData.env
-        ? "云环境已配置，可以开始验证。"
-        : "请先在 app.js 中填写云环境 ID。",
+  goStudy() {
+    wx.switchTab({
+      url: "/pages/study/index",
     });
   },
 
-  async initCloud() {
-    if (!this.data.env) {
-      this.setData({
-        status: "error",
-        message: "请先在 miniprogram/app.js 中填写 env。",
-      });
+  openEntry(event) {
+    const { url } = event.currentTarget.dataset;
+    if (!url) return;
+
+    if (url === "/pages/study/index" || url === "/pages/words/index") {
+      wx.switchTab({ url });
       return;
     }
 
-    this.setData({
-      loading: true,
-      message: "正在连接云开发环境...",
-    });
-
-    try {
-      const res = await wx.cloud.callFunction({
-        name: "initCloud",
-      });
-
-      const result = res.result || {};
-      this.setData({
-        loading: false,
-        status: result.success ? "success" : "error",
-        message: result.success ? "云开发验证成功，数据库集合已准备好。" : "云开发验证失败。",
-        openid: result.openid || "",
-        collections: result.collections || [],
-      });
-    } catch (error) {
-      this.setData({
-        loading: false,
-        status: "error",
-        message: this.getErrorMessage(error),
-      });
-    }
-  },
-
-  getErrorMessage(error) {
-    const errMsg = error && error.errMsg ? error.errMsg : "";
-
-    if (errMsg.includes("Environment not found")) {
-      return "未找到云环境，请检查 app.js 中的 env 是否与微信开发者工具里的环境 ID 一致。";
-    }
-
-    if (errMsg.includes("FunctionName parameter could not be found")) {
-      return "未找到 initCloud 云函数，请先右键 cloudfunctions/initCloud 并选择上传部署。";
-    }
-
-    return errMsg || "云开发调用失败，请检查开发者工具控制台。";
+    wx.navigateTo({ url });
   },
 });

@@ -1,0 +1,76 @@
+.words-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24rpx;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8rpx;
+}
+
+.tabs {
+  display: flex;
+  gap: 48rpx;
+  margin-top: 42rpx;
+  border-bottom: 1rpx solid #e8e3dc;
+}
+
+.tab {
+  position: relative;
+  padding-bottom: 20rpx;
+  color: #6b7280;
+  font-size: 28rpx;
+}
+
+.tab.active {
+  color: #7fa6cd;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1rpx;
+  left: 0;
+  height: 4rpx;
+  border-radius: 999rpx;
+  background: #a5c7e6;
+  content: "";
+}
+
+.word-count {
+  margin-top: 28rpx;
+  color: #6b7280;
+  font-size: 26rpx;
+}
+
+.word-side {
+  display: flex;
+  align-items: center;
+  margin-left: 24rpx;
+}
+
+.arrow {
+  margin-left: 16rpx;
+  color: #b0a99f;
+  font-size: 40rpx;
+}
+
+.floating-add {
+  position: fixed;
+  right: 48rpx;
+  bottom: 156rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 208rpx;
+  height: 88rpx;
+  border-radius: 999rpx;
+  background: #a5c7e6;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 500;
+  box-shadow: 0 20rpx 48rpx rgba(127, 166, 205, 0.22);
+}

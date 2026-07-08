@@ -1,0 +1,42 @@
+<view class="rm-page with-tab">
+  <view class="rm-topbar">
+    <view class="rm-back">‹</view>
+    <view class="rm-top-title">今日学习</view>
+    <view class="progress-count">1 / 20</view>
+  </view>
+
+  <view class="progress-track">
+    <view class="progress-fill"></view>
+  </view>
+
+  <view class="question-card">
+    <view class="question-tip">请选择正确的中文意思</view>
+    <view class="russian-word">добрый</view>
+    <view class="word-meta">[daˈbrij] · 形容词</view>
+  </view>
+
+  <view class="choices">
+    <view class="choice {{item.state}}" wx:for="{{choices}}" wx:key="key">
+      <text class="choice-key">{{item.key}}.</text>
+      <text>{{item.text}}</text>
+      <text class="choice-check" wx:if="{{item.state === 'selected'}}">✓</text>
+    </view>
+  </view>
+
+  <button class="rm-primary-button next-button">下一题</button>
+
+  <view class="input-panel">
+    <view class="input-title">输入题示例</view>
+    <view class="input-hint">请输入俄语</view>
+    <view class="chinese-word">谢谢</view>
+    <view class="answer-box">
+      <text class="placeholder">请输入俄语...</text>
+      <text class="counter">0 / 20</text>
+    </view>
+    <view class="tip">提示：спасибо</view>
+    <view class="action-row">
+      <button class="rm-secondary-button half">不会</button>
+      <button class="rm-primary-button half">检查</button>
+    </view>
+  </view>
+</view>

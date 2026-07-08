@@ -1,0 +1,78 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 168rpx 48rpx 64rpx;
+  background: #faf7f2;
+}
+
+.login-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 144rpx;
+  height: 144rpx;
+  border-radius: 36rpx;
+  background: linear-gradient(135deg, #a5c7e6 0%, #d7c5f5 100%);
+  color: #ffffff;
+  font-size: 80rpx;
+  font-weight: 600;
+  box-shadow: 0 24rpx 60rpx rgba(127, 166, 205, 0.18);
+}
+
+.brand {
+  margin-top: 36rpx;
+  color: #111827;
+  font-size: 64rpx;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.tagline {
+  margin-top: 20rpx;
+  color: #111827;
+  font-size: 30rpx;
+}
+
+.desc {
+  margin-top: 18rpx;
+  color: #6b7280;
+  font-size: 28rpx;
+}
+
+.login-footer {
+  width: 100%;
+}
+
+.login-button {
+  box-shadow: 0 20rpx 48rpx rgba(127, 166, 205, 0.22);
+}
+
+.agreement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 28rpx;
+  color: #8b8379;
+  font-size: 24rpx;
+  line-height: 1.4;
+}
+
+.radio {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 12rpx;
+  border: 2rpx solid #cfc8bf;
+  border-radius: 50%;
+  background: #ffffff;
+}

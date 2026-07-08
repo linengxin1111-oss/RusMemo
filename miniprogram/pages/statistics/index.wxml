@@ -1,0 +1,61 @@
+<view class="rm-page with-tab">
+  <view class="stats-header">
+    <view class="rm-title">学习统计</view>
+    <view class="period">本周⌄</view>
+  </view>
+
+  <view class="stats-grid">
+    <view class="stat-card" wx:for="{{stats}}" wx:key="label">
+      <view class="stat-label">{{item.label}}</view>
+      <view class="stat-value">{{item.value}}</view>
+    </view>
+  </view>
+
+  <view class="chart-card">
+    <view class="rm-card-title">学习趋势</view>
+    <view class="chart-subtitle">正确率</view>
+    <view class="chart-area">
+      <view class="grid-line top"></view>
+      <view class="grid-line middle"></view>
+      <view class="grid-line bottom"></view>
+      <view class="line-segment s1"></view>
+      <view class="line-segment s2"></view>
+      <view class="line-segment s3"></view>
+      <view class="line-segment s4"></view>
+      <view class="line-segment s5"></view>
+      <view class="dot d1"></view>
+      <view class="dot d2"></view>
+      <view class="dot d3"></view>
+      <view class="dot d4"></view>
+      <view class="dot d5"></view>
+      <view class="dot d6"></view>
+    </view>
+    <view class="date-row">
+      <text>05/13</text>
+      <text>05/14</text>
+      <text>05/15</text>
+      <text>05/16</text>
+      <text>05/17</text>
+      <text>05/18</text>
+    </view>
+  </view>
+
+  <view class="chart-card mastery-card">
+    <view class="rm-card-title">掌握情况</view>
+    <view class="mastery-body">
+      <view class="donut">
+        <view class="donut-inner">
+          <view class="donut-value">26%</view>
+          <view class="donut-label">已掌握</view>
+        </view>
+      </view>
+      <view class="legend">
+        <view class="legend-item" wx:for="{{legend}}" wx:key="label">
+          <view class="legend-dot {{item.color}}"></view>
+          <view class="legend-label">{{item.label}}</view>
+          <view class="legend-value">{{item.value}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

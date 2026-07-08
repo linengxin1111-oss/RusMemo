@@ -1,0 +1,46 @@
+.tabs {
+  display: flex;
+  gap: 48rpx;
+  margin-top: 28rpx;
+  border-bottom: 1rpx solid #e8e3dc;
+}
+
+.tab {
+  position: relative;
+  padding-bottom: 20rpx;
+  color: #6b7280;
+  font-size: 28rpx;
+}
+
+.tab.active {
+  color: #7fa6cd;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1rpx;
+  left: 0;
+  height: 4rpx;
+  border-radius: 999rpx;
+  background: #a5c7e6;
+  content: "";
+}
+
+.word-count {
+  margin-top: 28rpx;
+  color: #6b7280;
+  font-size: 26rpx;
+}
+
+.wrong-count {
+  flex-shrink: 0;
+  margin-left: 24rpx;
+  color: #c65a55;
+  font-size: 24rpx;
+}
+
+.review-button {
+  margin-top: 40rpx;
+}

@@ -1,0 +1,32 @@
+<view class="rm-page">
+  <view class="rm-topbar">
+    <view class="rm-back" bindtap="goBack">‹</view>
+    <view class="rm-top-title">添加单词</view>
+    <view class="rm-icon-button">ⓘ</view>
+  </view>
+
+  <view class="form-card">
+    <view class="field">
+      <view class="field-label">俄语单词 <text>*</text></view>
+      <input class="rm-input" placeholder="请输入俄语单词" placeholder-class="rm-input-placeholder" />
+    </view>
+    <view class="field">
+      <view class="field-label">中文意思 <text>*</text></view>
+      <input class="rm-input" placeholder="请输入中文意思" placeholder-class="rm-input-placeholder" />
+    </view>
+    <view class="field">
+      <view class="field-label">词性（可选）</view>
+      <input class="rm-input" placeholder="例：名词、动词、形容词" placeholder-class="rm-input-placeholder" />
+    </view>
+    <view class="field">
+      <view class="field-label">例句（可选）</view>
+      <textarea class="rm-textarea" placeholder="请输入例句" placeholder-class="rm-input-placeholder"></textarea>
+    </view>
+    <view class="field">
+      <view class="field-label">来源（可选）</view>
+      <input class="rm-input" placeholder="选择来源" placeholder-class="rm-input-placeholder" />
+    </view>
+  </view>
+
+  <button class="rm-primary-button save-button">保存</button>
+</view>

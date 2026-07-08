@@ -1,0 +1,38 @@
+<view class="rm-page with-tab">
+  <view class="words-header">
+    <view class="rm-title">单词本</view>
+    <view class="header-actions">
+      <view class="rm-icon-button">⌕</view>
+      <view class="rm-icon-button">⋯</view>
+    </view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab active">全部</view>
+    <view class="tab">系统词库</view>
+    <view class="tab">我的单词</view>
+  </view>
+
+  <view class="word-count">共 200 个单词</view>
+
+  <view class="rm-list">
+    <view
+      class="rm-list-item"
+      wx:for="{{words}}"
+      wx:key="russian"
+      data-mine="{{item.mine}}"
+      bindtap="editWord"
+    >
+      <view>
+        <view class="rm-word">{{item.russian}}</view>
+        <view class="rm-meaning">{{item.meaning}}</view>
+      </view>
+      <view class="word-side">
+        <view class="rm-tag {{item.mine ? 'primary' : ''}}">{{item.tag}}</view>
+        <view class="arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <button class="floating-add" bindtap="addWord">+ 添加单词</button>
+</view>

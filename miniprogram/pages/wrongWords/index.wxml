@@ -1,0 +1,28 @@
+<view class="rm-page">
+  <view class="rm-topbar">
+    <view class="rm-back" bindtap="goBack">‹</view>
+    <view class="rm-top-title">错词本</view>
+    <view class="rm-icon-button">⌕</view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab active">全部</view>
+    <view class="tab">今天</view>
+    <view class="tab">本周</view>
+    <view class="tab">本月</view>
+  </view>
+
+  <view class="word-count">共 24 个单词</view>
+
+  <view class="rm-list">
+    <view class="rm-list-item" wx:for="{{words}}" wx:key="russian">
+      <view>
+        <view class="rm-word">{{item.russian}}</view>
+        <view class="rm-meaning">{{item.meaning}}</view>
+      </view>
+      <view class="wrong-count">{{item.count}}</view>
+    </view>
+  </view>
+
+  <button class="rm-outline-button review-button">重新学习全部</button>
+</view>

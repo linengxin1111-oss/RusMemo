@@ -1,0 +1,14 @@
+@import "../addWord/index.wxss";
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 104rpx;
+  margin-top: 24rpx;
+  border-radius: 32rpx;
+  background: rgba(242, 139, 133, 0.12);
+  color: #c65a55;
+  font-size: 32rpx;
+  font-weight: 500;
+}

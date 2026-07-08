@@ -1,0 +1,18 @@
+<view class="login-page">
+  <view class="login-main">
+    <view class="logo">R</view>
+    <view class="brand">RusMemo</view>
+    <view class="tagline">专注俄语单词学习</view>
+    <view class="desc">科学记忆 · 高效提升</view>
+  </view>
+
+  <view class="login-footer">
+    <button class="rm-primary-button login-button" bindtap="goHome">
+      微信一键登录
+    </button>
+    <view class="agreement">
+      <view class="radio"></view>
+      <text>我已阅读并同意《用户协议》和《隐私政策》</text>
+    </view>
+  </view>
+</view>

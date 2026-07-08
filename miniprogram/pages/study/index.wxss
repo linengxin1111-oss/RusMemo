@@ -1,0 +1,145 @@
+.progress-count {
+  width: 96rpx;
+  color: #111827;
+  font-size: 28rpx;
+  text-align: right;
+}
+
+.progress-track {
+  overflow: hidden;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: #e8e3dc;
+}
+
+.progress-fill {
+  width: 18%;
+  height: 100%;
+  border-radius: 999rpx;
+  background: #a5c7e6;
+}
+
+.question-card {
+  margin-top: 48rpx;
+  padding: 40rpx;
+  border: 1rpx solid #e8e3dc;
+  border-radius: 40rpx;
+  background: #ffffff;
+}
+
+.question-tip,
+.input-hint,
+.tip {
+  color: #6b7280;
+  font-size: 26rpx;
+}
+
+.russian-word {
+  margin-top: 42rpx;
+  color: #111827;
+  font-size: 68rpx;
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+.word-meta {
+  margin-top: 16rpx;
+  color: #6b7280;
+  font-size: 26rpx;
+}
+
+.choices {
+  margin-top: 32rpx;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  min-height: 104rpx;
+  margin-bottom: 24rpx;
+  padding: 0 28rpx;
+  border: 1rpx solid #e8e3dc;
+  border-radius: 28rpx;
+  background: #ffffff;
+  color: #111827;
+  font-size: 30rpx;
+}
+
+.choice.selected {
+  border-color: #a5c7e6;
+  background: rgba(165, 199, 230, 0.14);
+  color: #4f6f9f;
+}
+
+.choice-key {
+  width: 64rpx;
+  font-weight: 500;
+}
+
+.choice-check {
+  margin-left: auto;
+  color: #4f6f9f;
+  font-size: 30rpx;
+}
+
+.next-button {
+  margin-top: 28rpx;
+}
+
+.input-panel {
+  margin-top: 44rpx;
+  padding: 40rpx;
+  border: 1rpx solid #e8e3dc;
+  border-radius: 40rpx;
+  background: #ffffff;
+}
+
+.input-title {
+  color: #111827;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.input-hint {
+  margin-top: 36rpx;
+}
+
+.chinese-word {
+  margin-top: 28rpx;
+  color: #111827;
+  font-size: 60rpx;
+  font-weight: 500;
+}
+
+.answer-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 104rpx;
+  margin-top: 44rpx;
+  padding: 0 28rpx;
+  border: 1rpx solid #e8e3dc;
+  border-radius: 28rpx;
+  background: #ffffff;
+}
+
+.placeholder,
+.counter {
+  color: #b0a99f;
+  font-size: 26rpx;
+}
+
+.tip {
+  margin-top: 24rpx;
+}
+
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24rpx;
+  margin-top: 56rpx;
+}
+
+.half {
+  width: 100%;
+}

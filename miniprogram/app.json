@@ -1,14 +1,52 @@
 {
   "pages": [
+    "pages/login/index",
     "pages/index/index",
-    "pages/example/index"
+    "pages/study/index",
+    "pages/words/index",
+    "pages/addWord/index",
+    "pages/editWord/index",
+    "pages/wrongWords/index",
+    "pages/statistics/index"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#FAF7F2",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#FAF7F2",
     "navigationBarTitleText": "RusMemo",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#6B7280",
+    "selectedColor": "#7FA6CD",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/words/index",
+        "text": "单词本",
+        "iconPath": "images/icons/goods.png",
+        "selectedIconPath": "images/icons/goods-active.png"
+      },
+      {
+        "pagePath": "pages/study/index",
+        "text": "学习",
+        "iconPath": "images/icons/business.png",
+        "selectedIconPath": "images/icons/business-active.png"
+      },
+      {
+        "pagePath": "pages/statistics/index",
+        "text": "统计",
+        "iconPath": "images/icons/usercenter.png",
+        "selectedIconPath": "images/icons/usercenter-active.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",

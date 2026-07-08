@@ -1,0 +1,33 @@
+<view class="rm-page">
+  <view class="rm-topbar">
+    <view class="rm-back" bindtap="goBack">‹</view>
+    <view class="rm-top-title">编辑单词</view>
+    <view class="rm-icon-button"></view>
+  </view>
+
+  <view class="form-card">
+    <view class="field">
+      <view class="field-label">俄语单词 <text>*</text></view>
+      <input class="rm-input" value="метро" />
+    </view>
+    <view class="field">
+      <view class="field-label">中文意思 <text>*</text></view>
+      <input class="rm-input" value="地铁" />
+    </view>
+    <view class="field">
+      <view class="field-label">词性（可选）</view>
+      <input class="rm-input" value="名词" />
+    </view>
+    <view class="field">
+      <view class="field-label">例句（可选）</view>
+      <textarea class="rm-textarea" value="Где метро?"></textarea>
+    </view>
+    <view class="field">
+      <view class="field-label">来源（可选）</view>
+      <input class="rm-input" value="旅行常用" />
+    </view>
+  </view>
+
+  <button class="rm-primary-button save-button">保存</button>
+  <button class="delete-button">删除单词</button>
+</view>
