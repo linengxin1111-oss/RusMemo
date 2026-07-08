@@ -7,8 +7,8 @@
   </view>
 
   <view class="login-footer">
-    <button class="rm-primary-button login-button" bindtap="goHome">
-      微信一键登录
+    <button class="rm-primary-button login-button" loading="{{loading}}" bindtap="goHome">
+      {{loading ? "登录中..." : "微信一键登录"}}
     </button>
     <view class="agreement">
       <view class="radio"></view>

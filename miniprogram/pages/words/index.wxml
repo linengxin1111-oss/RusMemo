@@ -8,30 +8,42 @@
   </view>
 
   <view class="tabs">
-    <view class="tab active">全部</view>
-    <view class="tab">系统词库</view>
-    <view class="tab">我的单词</view>
+    <view
+      class="tab {{activeTab === index ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="*this"
+      data-index="{{index}}"
+      bindtap="switchTab"
+    >
+      {{item}}
+    </view>
   </view>
 
-  <view class="word-count">共 200 个单词</view>
+  <view class="word-count">共 {{visibleWords.length}} 个单词</view>
 
-  <view class="rm-list">
+  <view class="rm-list" wx:if="{{visibleWords.length}}">
     <view
       class="rm-list-item"
-      wx:for="{{words}}"
+      wx:for="{{visibleWords}}"
       wx:key="russian"
-      data-mine="{{item.mine}}"
-      bindtap="editWord"
+      data-type="{{item.type}}"
+      bindtap="openWord"
     >
       <view>
         <view class="rm-word">{{item.russian}}</view>
         <view class="rm-meaning">{{item.meaning}}</view>
       </view>
       <view class="word-side">
-        <view class="rm-tag {{item.mine ? 'primary' : ''}}">{{item.tag}}</view>
+        <view class="rm-tag {{item.type === 'user' ? 'primary' : ''}}">{{item.tag}}</view>
         <view class="arrow">›</view>
       </view>
     </view>
+  </view>
+
+  <view class="rm-card rm-empty" wx:else>
+    <view class="rm-empty-icon">＋</view>
+    <view class="rm-empty-title">还没有自己的单词</view>
+    <view class="rm-empty-desc">添加旅行中常用的俄语词，后面会一起复习。</view>
   </view>
 
   <button class="floating-add" bindtap="addWord">+ 添加单词</button>

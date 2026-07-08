@@ -8,25 +8,25 @@
   <view class="form-card">
     <view class="field">
       <view class="field-label">俄语单词 <text>*</text></view>
-      <input class="rm-input" placeholder="请输入俄语单词" placeholder-class="rm-input-placeholder" />
+      <input class="rm-input" placeholder="请输入俄语单词" placeholder-class="rm-input-placeholder" data-field="russian_word" bindinput="onInput" />
     </view>
     <view class="field">
       <view class="field-label">中文意思 <text>*</text></view>
-      <input class="rm-input" placeholder="请输入中文意思" placeholder-class="rm-input-placeholder" />
+      <input class="rm-input" placeholder="请输入中文意思" placeholder-class="rm-input-placeholder" data-field="chinese_meaning" bindinput="onInput" />
     </view>
     <view class="field">
       <view class="field-label">词性（可选）</view>
-      <input class="rm-input" placeholder="例：名词、动词、形容词" placeholder-class="rm-input-placeholder" />
+      <input class="rm-input" placeholder="例：名词、动词、形容词" placeholder-class="rm-input-placeholder" data-field="part_of_speech" bindinput="onInput" />
     </view>
     <view class="field">
       <view class="field-label">例句（可选）</view>
-      <textarea class="rm-textarea" placeholder="请输入例句" placeholder-class="rm-input-placeholder"></textarea>
+      <textarea class="rm-textarea" placeholder="请输入例句" placeholder-class="rm-input-placeholder" data-field="example" bindinput="onInput"></textarea>
     </view>
     <view class="field">
       <view class="field-label">来源（可选）</view>
-      <input class="rm-input" placeholder="选择来源" placeholder-class="rm-input-placeholder" />
+      <input class="rm-input" placeholder="选择来源" placeholder-class="rm-input-placeholder" data-field="source" bindinput="onInput" />
     </view>
   </view>
 
-  <button class="rm-primary-button save-button">保存</button>
+  <button class="rm-primary-button save-button" bindtap="saveWord">保存</button>
 </view>

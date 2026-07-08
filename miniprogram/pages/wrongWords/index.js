@@ -12,4 +12,10 @@ Page({
   goBack() {
     wx.navigateBack();
   },
+
+  reviewAll() {
+    wx.switchTab({
+      url: "/pages/study/index",
+    });
+  },
 });

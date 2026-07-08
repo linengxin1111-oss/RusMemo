@@ -71,6 +71,18 @@
   color: #4f6f9f;
 }
 
+.choice.correct {
+  border-color: #b8dcc2;
+  background: rgba(184, 220, 194, 0.25);
+  color: #4b8b63;
+}
+
+.choice.wrong {
+  border-color: #f28b85;
+  background: rgba(242, 139, 133, 0.18);
+  color: #c65a55;
+}
+
 .choice-key {
   width: 64rpx;
   font-weight: 500;
@@ -92,6 +104,10 @@
   border: 1rpx solid #e8e3dc;
   border-radius: 40rpx;
   background: #ffffff;
+}
+
+.main-input-panel {
+  margin-top: 48rpx;
 }
 
 .input-title {
@@ -123,6 +139,18 @@
   background: #ffffff;
 }
 
+.answer-box.active {
+  border-color: #a5c7e6;
+}
+
+.answer-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  color: #111827;
+  font-size: 30rpx;
+}
+
 .placeholder,
 .counter {
   color: #b0a99f;
@@ -142,4 +170,34 @@
 
 .half {
   width: 100%;
+}
+
+.feedback {
+  margin-top: 28rpx;
+  padding: 24rpx 28rpx;
+  border-radius: 28rpx;
+  font-size: 28rpx;
+  line-height: 1.45;
+  animation: fadeIn 0.18s ease;
+}
+
+.feedback.success {
+  background: rgba(184, 220, 194, 0.25);
+  color: #4b8b63;
+}
+
+.feedback.error {
+  background: rgba(242, 139, 133, 0.18);
+  color: #c65a55;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -8,26 +8,26 @@
   <view class="form-card">
     <view class="field">
       <view class="field-label">俄语单词 <text>*</text></view>
-      <input class="rm-input" value="метро" />
+      <input class="rm-input" value="{{form.russian_word}}" data-field="russian_word" bindinput="onInput" />
     </view>
     <view class="field">
       <view class="field-label">中文意思 <text>*</text></view>
-      <input class="rm-input" value="地铁" />
+      <input class="rm-input" value="{{form.chinese_meaning}}" data-field="chinese_meaning" bindinput="onInput" />
     </view>
     <view class="field">
       <view class="field-label">词性（可选）</view>
-      <input class="rm-input" value="名词" />
+      <input class="rm-input" value="{{form.part_of_speech}}" data-field="part_of_speech" bindinput="onInput" />
     </view>
     <view class="field">
       <view class="field-label">例句（可选）</view>
-      <textarea class="rm-textarea" value="Где метро?"></textarea>
+      <textarea class="rm-textarea" value="{{form.example}}" data-field="example" bindinput="onInput"></textarea>
     </view>
     <view class="field">
       <view class="field-label">来源（可选）</view>
-      <input class="rm-input" value="旅行常用" />
+      <input class="rm-input" value="{{form.source}}" data-field="source" bindinput="onInput" />
     </view>
   </view>
 
-  <button class="rm-primary-button save-button">保存</button>
-  <button class="delete-button">删除单词</button>
+  <button class="rm-primary-button save-button" bindtap="saveWord">保存</button>
+  <button class="delete-button" bindtap="deleteWord">删除单词</button>
 </view>

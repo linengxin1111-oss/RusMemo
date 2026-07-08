@@ -1,7 +1,19 @@
 Page({
+  data: {
+    loading: false,
+  },
+
   goHome() {
-    wx.switchTab({
-      url: "/pages/index/index",
+    if (this.data.loading) return;
+
+    this.setData({
+      loading: true,
     });
+
+    setTimeout(() => {
+      wx.switchTab({
+        url: "/pages/index/index",
+      });
+    }, 350);
   },
 });

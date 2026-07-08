@@ -1,42 +1,71 @@
 <view class="rm-page with-tab">
   <view class="rm-topbar">
-    <view class="rm-back">‹</view>
+    <view class="rm-back" bindtap="goBack">‹</view>
     <view class="rm-top-title">今日学习</view>
-    <view class="progress-count">1 / 20</view>
+    <view class="progress-count">{{currentIndex + 1}} / {{total}}</view>
   </view>
 
   <view class="progress-track">
-    <view class="progress-fill"></view>
+    <view class="progress-fill" style="width: {{progress}}%;"></view>
   </view>
 
-  <view class="question-card">
-    <view class="question-tip">请选择正确的中文意思</view>
-    <view class="russian-word">добрый</view>
-    <view class="word-meta">[daˈbrij] · 形容词</view>
-  </view>
-
-  <view class="choices">
-    <view class="choice {{item.state}}" wx:for="{{choices}}" wx:key="key">
-      <text class="choice-key">{{item.key}}.</text>
-      <text>{{item.text}}</text>
-      <text class="choice-check" wx:if="{{item.state === 'selected'}}">✓</text>
+  <block wx:if="{{question.type === 'choice'}}">
+    <view class="question-card">
+      <view class="question-tip">{{question.prompt}}</view>
+      <view class="russian-word">{{question.russian}}</view>
+      <view class="word-meta">{{question.meta}}</view>
     </view>
+
+    <view class="choices">
+      <view
+        class="choice {{selectedKey === item.key ? 'selected' : ''}} {{checked && item.key === question.answer ? 'correct' : ''}} {{checked && selectedKey === item.key && item.key !== question.answer ? 'wrong' : ''}}"
+        wx:for="{{question.choices}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="selectChoice"
+      >
+        <text class="choice-key">{{item.key}}.</text>
+        <text>{{item.text}}</text>
+        <text class="choice-check" wx:if="{{checked && item.key === question.answer}}">✓</text>
+        <text class="choice-check" wx:elif="{{checked && selectedKey === item.key && item.key !== question.answer}}">×</text>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="input-panel main-input-panel">
+      <view class="input-hint">{{question.prompt}}</view>
+      <view class="chinese-word">{{question.chinese}}</view>
+      <view class="answer-box active">
+        <input
+          class="answer-input"
+          value="{{inputValue}}"
+          placeholder="请输入俄语..."
+          placeholder-class="rm-input-placeholder"
+          maxlength="20"
+          bindinput="onAnswerInput"
+          disabled="{{checked}}"
+        />
+        <text class="counter">{{inputValue.length}} / 20</text>
+      </view>
+      <view class="tip">提示：{{question.hint}}</view>
+    </view>
+  </block>
+
+  <view class="feedback {{isCorrect ? 'success' : 'error'}}" wx:if="{{checked}}">
+    {{feedback}}
   </view>
 
-  <button class="rm-primary-button next-button">下一题</button>
-
-  <view class="input-panel">
-    <view class="input-title">输入题示例</view>
-    <view class="input-hint">请输入俄语</view>
-    <view class="chinese-word">谢谢</view>
-    <view class="answer-box">
-      <text class="placeholder">请输入俄语...</text>
-      <text class="counter">0 / 20</text>
-    </view>
-    <view class="tip">提示：спасибо</view>
-    <view class="action-row">
-      <button class="rm-secondary-button half">不会</button>
-      <button class="rm-primary-button half">检查</button>
-    </view>
+  <view class="action-row" wx:if="{{question.type === 'input' && !checked}}">
+    <button class="rm-secondary-button half" bindtap="markUnknown">不会</button>
+    <button class="rm-primary-button half" bindtap="checkAnswer">检查</button>
   </view>
+
+  <button class="rm-primary-button next-button" wx:elif="{{!checked}}" bindtap="checkAnswer">
+    检查
+  </button>
+
+  <button class="rm-primary-button next-button" wx:else bindtap="nextQuestion">
+    下一题
+  </button>
 </view>
