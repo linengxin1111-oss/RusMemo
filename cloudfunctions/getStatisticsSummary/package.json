@@ -1,0 +1,9 @@
+{
+  "name": "getStatisticsSummary",
+  "version": "1.0.0",
+  "description": "Build RusMemo statistics summary for the current user.",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}

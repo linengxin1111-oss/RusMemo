@@ -1,8 +1,10 @@
 <view class="rm-page with-tab">
   <view class="stats-header">
     <view class="rm-title">学习统计</view>
-    <view class="period">本周⌄</view>
+    <view class="period">累计</view>
   </view>
+
+  <view class="stats-notice" wx:if="{{loadError}}">{{loadError}}</view>
 
   <view class="stats-grid">
     <view class="stat-card" wx:for="{{stats}}" wx:key="label">
@@ -14,7 +16,11 @@
   <view class="chart-card">
     <view class="rm-card-title">学习趋势</view>
     <view class="chart-subtitle">正确率</view>
-    <view class="chart-area">
+    <view class="rm-empty compact-empty" wx:if="{{!trend.length}}">
+      <view class="rm-empty-title">还没有趋势数据</view>
+      <view class="rm-empty-desc">完成几次学习后，这里会显示正确率变化</view>
+    </view>
+    <view class="chart-area" wx:else>
       <view class="grid-line top"></view>
       <view class="grid-line middle"></view>
       <view class="grid-line bottom"></view>
@@ -30,22 +36,17 @@
       <view class="dot d5"></view>
       <view class="dot d6"></view>
     </view>
-    <view class="date-row">
-      <text>05/13</text>
-      <text>05/14</text>
-      <text>05/15</text>
-      <text>05/16</text>
-      <text>05/17</text>
-      <text>05/18</text>
+    <view class="date-row" wx:if="{{trend.length}}">
+      <text wx:for="{{trend}}" wx:key="date">{{item.date}}</text>
     </view>
   </view>
 
   <view class="chart-card mastery-card">
     <view class="rm-card-title">掌握情况</view>
     <view class="mastery-body">
-      <view class="donut">
+      <view class="donut" style="background: conic-gradient(#b8dcc2 0deg {{masteredDegrees}}deg, #d7c5f5 {{masteredDegrees}}deg {{learningDegrees}}deg, #e8e3dc {{learningDegrees}}deg 360deg);">
         <view class="donut-inner">
-          <view class="donut-value">26%</view>
+          <view class="donut-value">{{summary.masteredRate}}%</view>
           <view class="donut-label">已掌握</view>
         </view>
       </view>

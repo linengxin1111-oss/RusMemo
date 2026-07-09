@@ -16,6 +16,17 @@
   font-size: 26rpx;
 }
 
+.stats-notice {
+  margin-top: 28rpx;
+  padding: 22rpx 28rpx;
+  border: 1rpx solid rgba(165, 199, 230, 0.35);
+  border-radius: 28rpx;
+  background: rgba(165, 199, 230, 0.12);
+  color: #4f6f9f;
+  font-size: 26rpx;
+  line-height: 1.45;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -62,6 +73,11 @@
   position: relative;
   height: 260rpx;
   margin-top: 36rpx;
+}
+
+.compact-empty {
+  min-height: 220rpx;
+  padding: 28rpx;
 }
 
 .grid-line {
@@ -135,7 +151,6 @@
   width: 204rpx;
   height: 204rpx;
   border-radius: 50%;
-  background: conic-gradient(#b8dcc2 0deg 94deg, #d7c5f5 94deg 230deg, #e8e3dc 230deg 360deg);
 }
 
 .donut-inner {
