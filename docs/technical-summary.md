@@ -94,6 +94,7 @@ cloudfunctions/
   listWords/
   manageWord/
   getStudySession/
+  recordStudyAnswer/
 
 docs/
   database.md
@@ -227,13 +228,14 @@ Current behavior:
 - Supports two question types:
   - Russian to Chinese multiple choice
   - Chinese to Russian input
+- Calls `recordStudyAnswer` after checking an answer.
+- Writes level, correct count, wrong count, and next review time to `word_progress`.
 - Shows loading and fallback states.
 - Falls back to local mock questions if the cloud function is unavailable.
 
 Not implemented yet:
 
-- Writing answer results to `word_progress`
-- Review interval scheduling
+- Automatic selection of due review words
 - Daily study log
 
 ### Wrong Words
@@ -419,6 +421,38 @@ Deployment note:
 
 - This cloud function must be uploaded and deployed in WeChat Developer Tools before the study page can use real cloud questions.
 
+### recordStudyAnswer
+
+Path:
+
+```text
+cloudfunctions/recordStudyAnswer
+```
+
+Purpose:
+
+- Records one answer from the study page.
+- Creates or updates the current user's `word_progress` document.
+- Calculates the new mastery level.
+- Calculates the next review time.
+
+Current rules:
+
+- Correct answer:
+  - `level + 1`, max 4
+  - `correct_count + 1`
+  - next review follows the level interval
+- Wrong answer or "do not know":
+  - `level - 1`, min 0
+  - `wrong_count + 1`
+  - next review after 5 minutes
+
+Safety behavior:
+
+- System words can be recorded by any logged-in user.
+- User words can only be recorded by their owner.
+- Deleted words cannot be recorded.
+
 ## 8. Database Schema
 
 Detailed schema is maintained in:
@@ -491,8 +525,9 @@ Important fields:
 
 Current status:
 
-- Schema planned.
-- Not yet connected to the study page.
+- Connected to the study page through `recordStudyAnswer`.
+- Used to store level, correct count, wrong count, last study time, and next review time.
+- Not yet used for automatic review selection.
 
 ### study_log
 
@@ -594,21 +629,14 @@ After pulling or opening this project in WeChat Developer Tools:
 Next step:
 
 ```text
-Implement answer recording and mastery progress.
+Implement automatic review selection.
 ```
 
 Scope:
 
-- Add a cloud function or extend an existing function to record answer results.
-- Create or update `word_progress` for each answered word.
-- Correct answer:
-  - `level + 1`, max 4
-  - `correct_count + 1`
-- Wrong answer:
-  - `level - 1`, min 0
-  - `wrong_count + 1`
-  - review again after 5 minutes
-- Compute `next_review_at` from the updated level.
-- Connect the study page after each checked answer.
+- Update `getStudySession` to read `word_progress`.
+- Prioritize words where `next_review_at <= now`.
+- Add new words only after due review words are filled.
+- Keep user-created words in the same selection pool.
 
-This will turn the current question flow into the first real spaced-review loop.
+This will turn the current progress tracking into the first real spaced-review loop.

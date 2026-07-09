@@ -72,6 +72,7 @@
 
   <view class="feedback {{isCorrect ? 'success' : 'error'}}" wx:if="{{question && checked}}">
     {{feedback}}
+    <text class="saving-text" wx:if="{{answerSaving}}">正在保存学习记录...</text>
   </view>
 
   <view class="action-row" wx:if="{{question && question.type === 'input' && !checked}}">
@@ -83,7 +84,7 @@
     检查
   </button>
 
-  <button class="rm-primary-button next-button" wx:elif="{{question}}" bindtap="nextQuestion">
-    下一题
+  <button class="rm-primary-button next-button {{answerSaving ? 'disabled' : ''}}" wx:elif="{{question}}" bindtap="nextQuestion">
+    {{answerSaving ? "保存中..." : "下一题"}}
   </button>
 </view>

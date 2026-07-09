@@ -12,6 +12,7 @@ Page({
     selectedKey: "",
     inputValue: "",
     checked: false,
+    answerSaving: false,
     isCorrect: false,
     feedback: "",
     progress: 0,
@@ -86,7 +87,8 @@ Page({
   },
 
   checkAnswer() {
-    const { question, selectedKey, inputValue } = this.data;
+    const { question, selectedKey, inputValue, answerSaving } = this.data;
+    if (answerSaving) return;
     if (!question) return;
     let isCorrect = false;
 
@@ -113,24 +115,78 @@ Page({
 
     this.setData({
       checked: true,
+      answerSaving: Boolean(question.wordId),
       isCorrect,
       feedback: isCorrect
         ? "回答正确，太棒了，继续加油！"
         : `回答错误，正确答案：${question.answerText || question.answer}`,
     });
+
+    this.recordAnswerResult(isCorrect);
   },
 
   markUnknown() {
-    const { question } = this.data;
+    const { question, answerSaving } = this.data;
+    if (answerSaving) return;
     if (!question) return;
     this.setData({
       checked: true,
+      answerSaving: Boolean(question.wordId),
       isCorrect: false,
       feedback: `先记一下，正确答案：${question.answerText || question.answer}`,
+    });
+    this.recordAnswerResult(false);
+  },
+
+  recordAnswerResult(isCorrect) {
+    const { question } = this.data;
+
+    if (!question || !question.wordId) {
+      this.setData({
+        answerSaving: false,
+      });
+      return;
+    }
+
+    wx.cloud.callFunction({
+      name: "recordStudyAnswer",
+      data: {
+        wordId: question.wordId,
+        isCorrect,
+        questionType: question.type,
+      },
+      success: (res) => {
+        const result = res.result || {};
+        if (!result.success) {
+          wx.showToast({
+            title: "学习记录保存失败",
+            icon: "none",
+          });
+        }
+      },
+      fail: () => {
+        wx.showToast({
+          title: "学习记录保存失败",
+          icon: "none",
+        });
+      },
+      complete: () => {
+        this.setData({
+          answerSaving: false,
+        });
+      },
     });
   },
 
   nextQuestion() {
+    if (this.data.answerSaving) {
+      wx.showToast({
+        title: "正在保存学习记录",
+        icon: "none",
+      });
+      return;
+    }
+
     const { questions } = this.data;
     const nextIndex = this.data.currentIndex + 1;
     if (nextIndex >= questions.length) {
@@ -167,6 +223,7 @@ Page({
       selectedKey: "",
       inputValue: "",
       checked: false,
+      answerSaving: false,
       isCorrect: false,
       feedback: "",
       progress: Math.round(((index + 1) / questions.length) * 100),
