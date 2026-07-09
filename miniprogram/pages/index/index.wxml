@@ -8,12 +8,15 @@
 
   <view class="study-card">
     <view class="card-heading">今日学习</view>
+    <view class="home-notice" wx:if="{{loadError}}">{{loadError}}</view>
     <view class="study-main">
-      <view class="ring">
+      <view class="ring" style="background: conic-gradient(#a5c7e6 0deg {{ringDegrees}}deg, #f4efe8 {{ringDegrees}}deg 360deg);">
         <view class="ring-inner"></view>
       </view>
       <view class="study-summary">
-        <view class="progress-number"><text>32</text><text class="total"> / 50</text></view>
+        <view class="progress-number">
+          <text>{{summary.todayStudied}}</text><text class="total"> / {{summary.todayTarget}}</text>
+        </view>
         <view class="rm-muted">已完成</view>
         <button class="continue-button" bindtap="goStudy">继续学习</button>
       </view>
