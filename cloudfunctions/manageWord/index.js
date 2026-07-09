@@ -91,6 +91,7 @@ exports.main = async (event) => {
     const result = await wordCollection.add({
       data: {
         ...word,
+        _openid: wxContext.OPENID,
         created_at: now,
         updated_at: now,
       },
@@ -99,6 +100,10 @@ exports.main = async (event) => {
     return {
       success: true,
       id: result._id,
+      word: toClientWord({
+        _id: result._id,
+        ...word,
+      }),
     };
   }
 
