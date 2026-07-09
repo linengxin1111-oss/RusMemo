@@ -2,70 +2,88 @@
   <view class="rm-topbar">
     <view class="rm-back" bindtap="goBack">‹</view>
     <view class="rm-top-title">今日学习</view>
-    <view class="progress-count">{{currentIndex + 1}} / {{total}}</view>
+    <view class="progress-count">{{displayIndex}} / {{total}}</view>
   </view>
 
   <view class="progress-track">
     <view class="progress-fill" style="width: {{progress}}%;"></view>
   </view>
 
-  <block wx:if="{{question.type === 'choice'}}">
-    <view class="question-card">
-      <view class="question-tip">{{question.prompt}}</view>
-      <view class="russian-word">{{question.russian}}</view>
-      <view class="word-meta">{{question.meta}}</view>
-    </view>
-
-    <view class="choices">
-      <view
-        class="choice {{selectedKey === item.key ? 'selected' : ''}} {{checked && item.key === question.answer ? 'correct' : ''}} {{checked && selectedKey === item.key && item.key !== question.answer ? 'wrong' : ''}}"
-        wx:for="{{question.choices}}"
-        wx:key="key"
-        data-key="{{item.key}}"
-        bindtap="selectChoice"
-      >
-        <text class="choice-key">{{item.key}}.</text>
-        <text>{{item.text}}</text>
-        <text class="choice-check" wx:if="{{checked && item.key === question.answer}}">✓</text>
-        <text class="choice-check" wx:elif="{{checked && selectedKey === item.key && item.key !== question.answer}}">×</text>
-      </view>
-    </view>
-  </block>
+  <view class="rm-empty" wx:if="{{loading}}">
+    <view class="rm-empty-icon">···</view>
+    <view class="rm-empty-title">正在准备题目</view>
+    <view class="rm-empty-desc">从你的词库里挑选今天要学习的单词</view>
+  </view>
 
   <block wx:else>
-    <view class="input-panel main-input-panel">
-      <view class="input-hint">{{question.prompt}}</view>
-      <view class="chinese-word">{{question.chinese}}</view>
-      <view class="answer-box active">
-        <input
-          class="answer-input"
-          value="{{inputValue}}"
-          placeholder="请输入俄语..."
-          placeholder-class="rm-input-placeholder"
-          maxlength="20"
-          bindinput="onAnswerInput"
-          disabled="{{checked}}"
-        />
-        <text class="counter">{{inputValue.length}} / 20</text>
-      </view>
-      <view class="tip">提示：{{question.hint}}</view>
+    <view class="study-notice" wx:if="{{loadError}}">
+      {{loadError}}
     </view>
+
+    <view class="rm-empty" wx:if="{{!question}}">
+      <view class="rm-empty-icon">＋</view>
+      <view class="rm-empty-title">还没有单词</view>
+      <view class="rm-empty-desc">先导入 A1 词库，或者在单词本里添加一个自己的单词</view>
+    </view>
+
+    <block wx:elif="{{question.type === 'choice'}}">
+      <view class="question-card">
+        <view class="question-tip">{{question.prompt}}</view>
+        <view class="russian-word">{{question.russian}}</view>
+        <view class="word-meta">{{question.meta}}</view>
+      </view>
+
+      <view class="choices">
+        <view
+          class="choice {{selectedKey === item.key ? 'selected' : ''}} {{checked && item.key === question.answer ? 'correct' : ''}} {{checked && selectedKey === item.key && item.key !== question.answer ? 'wrong' : ''}}"
+          wx:for="{{question.choices}}"
+          wx:key="key"
+          data-key="{{item.key}}"
+          bindtap="selectChoice"
+        >
+          <text class="choice-key">{{item.key}}.</text>
+          <text>{{item.text}}</text>
+          <text class="choice-check" wx:if="{{checked && item.key === question.answer}}">✓</text>
+          <text class="choice-check" wx:elif="{{checked && selectedKey === item.key && item.key !== question.answer}}">×</text>
+        </view>
+      </view>
+    </block>
+
+    <block wx:elif="{{question.type === 'input'}}">
+      <view class="input-panel main-input-panel">
+        <view class="input-hint">{{question.prompt}}</view>
+        <view class="chinese-word">{{question.chinese}}</view>
+        <view class="answer-box active">
+          <input
+            class="answer-input"
+            value="{{inputValue}}"
+            placeholder="请输入俄语..."
+            placeholder-class="rm-input-placeholder"
+            maxlength="20"
+            bindinput="onAnswerInput"
+            disabled="{{checked}}"
+          />
+          <text class="counter">{{inputValue.length}} / 20</text>
+        </view>
+        <view class="tip">提示：{{question.hint}}</view>
+      </view>
+    </block>
   </block>
 
-  <view class="feedback {{isCorrect ? 'success' : 'error'}}" wx:if="{{checked}}">
+  <view class="feedback {{isCorrect ? 'success' : 'error'}}" wx:if="{{question && checked}}">
     {{feedback}}
   </view>
 
-  <view class="action-row" wx:if="{{question.type === 'input' && !checked}}">
+  <view class="action-row" wx:if="{{question && question.type === 'input' && !checked}}">
     <button class="rm-secondary-button half" bindtap="markUnknown">不会</button>
     <button class="rm-primary-button half" bindtap="checkAnswer">检查</button>
   </view>
 
-  <button class="rm-primary-button next-button {{!selectedKey && question.type === 'choice' ? 'disabled' : ''}}" wx:elif="{{!checked}}" bindtap="checkAnswer">
+  <button class="rm-primary-button next-button {{!selectedKey && question.type === 'choice' ? 'disabled' : ''}}" wx:elif="{{question && !checked}}" bindtap="checkAnswer">
     检查
   </button>
 
-  <button class="rm-primary-button next-button" wx:else bindtap="nextQuestion">
+  <button class="rm-primary-button next-button" wx:elif="{{question}}" bindtap="nextQuestion">
     下一题
   </button>
 </view>

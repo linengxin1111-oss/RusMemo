@@ -2,25 +2,73 @@ const { studyQuestions } = require("../../data/mock");
 
 Page({
   data: {
+    loading: true,
+    loadError: "",
+    questions: [],
     currentIndex: 0,
-    total: studyQuestions.length,
-    question: studyQuestions[0],
+    displayIndex: 0,
+    total: 0,
+    question: null,
     selectedKey: "",
     inputValue: "",
     checked: false,
     isCorrect: false,
     feedback: "",
-    progress: 33,
+    progress: 0,
   },
 
   onLoad() {
-    this.renderQuestion(0);
+    this.loadStudySession();
   },
 
   goBack() {
     wx.switchTab({
       url: "/pages/index/index",
     });
+  },
+
+  loadStudySession() {
+    this.setData({
+      loading: true,
+      loadError: "",
+    });
+
+    wx.cloud.callFunction({
+      name: "getStudySession",
+      data: {
+        limit: 10,
+      },
+      success: (res) => {
+        const result = res.result || {};
+        const questions = Array.isArray(result.questions) ? result.questions : [];
+
+        if (!result.success || !questions.length) {
+          this.useFallbackQuestions("还没有可学习的单词，先用示例题练一下");
+          return;
+        }
+
+        this.setData({
+          loading: false,
+          loadError: "",
+          questions,
+          total: questions.length,
+        });
+        this.renderQuestion(0);
+      },
+      fail: () => {
+        this.useFallbackQuestions("云端题目暂时不可用，已切换到示例题");
+      },
+    });
+  },
+
+  useFallbackQuestions(message) {
+    this.setData({
+      loading: false,
+      loadError: message,
+      questions: studyQuestions,
+      total: studyQuestions.length,
+    });
+    this.renderQuestion(0);
   },
 
   selectChoice(event) {
@@ -39,6 +87,7 @@ Page({
 
   checkAnswer() {
     const { question, selectedKey, inputValue } = this.data;
+    if (!question) return;
     let isCorrect = false;
 
     if (question.type === "choice") {
@@ -67,27 +116,31 @@ Page({
       isCorrect,
       feedback: isCorrect
         ? "回答正确，太棒了，继续加油！"
-        : `回答错误，正确答案：${question.answer}`,
+        : `回答错误，正确答案：${question.answerText || question.answer}`,
     });
   },
 
   markUnknown() {
     const { question } = this.data;
+    if (!question) return;
     this.setData({
       checked: true,
       isCorrect: false,
-      feedback: `先记一下，正确答案：${question.answer}`,
+      feedback: `先记一下，正确答案：${question.answerText || question.answer}`,
     });
   },
 
   nextQuestion() {
+    const { questions } = this.data;
     const nextIndex = this.data.currentIndex + 1;
-    if (nextIndex >= studyQuestions.length) {
+    if (nextIndex >= questions.length) {
       wx.showToast({
         title: "今天已经完成啦",
         icon: "none",
       });
-      this.renderQuestion(0);
+      wx.switchTab({
+        url: "/pages/index/index",
+      });
       return;
     }
 
@@ -95,15 +148,28 @@ Page({
   },
 
   renderQuestion(index) {
+    const { questions } = this.data;
+    if (!questions.length) {
+      this.setData({
+        currentIndex: 0,
+        displayIndex: 0,
+        total: 0,
+        question: null,
+        progress: 0,
+      });
+      return;
+    }
+
     this.setData({
       currentIndex: index,
-      question: studyQuestions[index],
+      displayIndex: index + 1,
+      question: questions[index],
       selectedKey: "",
       inputValue: "",
       checked: false,
       isCorrect: false,
       feedback: "",
-      progress: Math.round(((index + 1) / studyQuestions.length) * 100),
+      progress: Math.round(((index + 1) / questions.length) * 100),
     });
   },
 });

@@ -19,6 +19,17 @@
   background: #a5c7e6;
 }
 
+.study-notice {
+  margin-top: 32rpx;
+  padding: 22rpx 28rpx;
+  border: 1rpx solid rgba(165, 199, 230, 0.35);
+  border-radius: 28rpx;
+  background: rgba(165, 199, 230, 0.12);
+  color: #4f6f9f;
+  font-size: 26rpx;
+  line-height: 1.45;
+}
+
 .question-card {
   margin-top: 48rpx;
   padding: 40rpx;
