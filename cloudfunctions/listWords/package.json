@@ -1,0 +1,9 @@
+{
+  "name": "listWords",
+  "version": "1.0.0",
+  "description": "List RusMemo words for current user.",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}

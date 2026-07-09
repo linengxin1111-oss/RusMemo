@@ -19,9 +19,17 @@
     </view>
   </view>
 
-  <view class="word-count">共 {{visibleWords.length}} 个单词</view>
+  <view class="word-count">
+    共 {{visibleWords.length}} 个单词
+    <text class="mock-tip" wx:if="{{usingMock}}"> · 示例数据</text>
+  </view>
+  <view class="load-error" wx:if="{{loadError}}">{{loadError}}</view>
 
-  <view class="rm-list" wx:if="{{visibleWords.length}}">
+  <view class="rm-card loading-card" wx:if="{{loading}}">
+    加载词库中...
+  </view>
+
+  <view class="rm-list" wx:elif="{{visibleWords.length}}">
     <view
       class="rm-list-item"
       wx:for="{{visibleWords}}"
