@@ -134,7 +134,7 @@ Page({
   },
 
   openWord(event) {
-    const { type } = event.currentTarget.dataset;
+    const { id, type } = event.currentTarget.dataset;
     if (type !== "user") {
       wx.showToast({
         title: "系统词暂不可编辑",
@@ -144,7 +144,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: "/pages/editWord/index",
+      url: `/pages/editWord/index?id=${id}`,
     });
   },
 });

@@ -5,7 +5,11 @@
     <view class="rm-icon-button"></view>
   </view>
 
-  <view class="form-card">
+  <view class="form-card loading-card" wx:if="{{loading}}">
+    加载单词中...
+  </view>
+
+  <view class="form-card" wx:else>
     <view class="field">
       <view class="field-label">俄语单词 <text>*</text></view>
       <input class="rm-input {{errors.russian_word ? 'error' : ''}}" value="{{form.russian_word}}" data-field="russian_word" bindinput="onInput" />
@@ -30,8 +34,10 @@
     </view>
   </view>
 
-  <button class="rm-primary-button save-button {{saving ? 'disabled' : ''}}" loading="{{saving}}" bindtap="saveWord">
+  <button class="rm-primary-button save-button {{saving ? 'disabled' : ''}}" loading="{{saving}}" bindtap="saveWord" wx:if="{{!loading}}">
     {{saving ? "保存中..." : "保存"}}
   </button>
-  <button class="delete-button" bindtap="deleteWord">删除单词</button>
+  <button class="delete-button" loading="{{deleting}}" bindtap="deleteWord" wx:if="{{!loading}}">
+    {{deleting ? "删除中..." : "删除单词"}}
+  </button>
 </view>

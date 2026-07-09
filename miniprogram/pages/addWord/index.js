@@ -23,7 +23,7 @@ Page({
     });
   },
 
-  saveWord() {
+  async saveWord() {
     if (this.data.saving) return;
 
     const { russian_word, chinese_meaning } = this.data.form;
@@ -50,16 +50,40 @@ Page({
       saving: true,
     });
 
-    wx.showToast({
-      title: "已添加",
-      icon: "success",
-    });
+    try {
+      const res = await wx.cloud.callFunction({
+        name: "manageWord",
+        data: {
+          action: "add",
+          word: this.data.form,
+        },
+      });
+      const result = res.result || {};
 
-    setTimeout(() => {
+      if (!result.success) {
+        this.setData({
+          errors: result.errors || {},
+        });
+        throw new Error(result.message || "add word failed");
+      }
+
+      wx.showToast({
+        title: "已添加",
+        icon: "success",
+      });
+
+      setTimeout(() => {
+        wx.navigateBack();
+      }, 500);
+    } catch (error) {
+      wx.showToast({
+        title: "保存失败，请重试",
+        icon: "none",
+      });
+    } finally {
       this.setData({
         saving: false,
       });
-      wx.navigateBack();
-    }, 500);
+    }
   },
 });

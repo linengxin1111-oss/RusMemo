@@ -1,0 +1,9 @@
+{
+  "name": "manageWord",
+  "version": "1.0.0",
+  "description": "Manage RusMemo user words.",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}

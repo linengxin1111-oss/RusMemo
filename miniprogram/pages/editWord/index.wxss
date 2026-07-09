@@ -12,3 +12,9 @@
   font-size: 32rpx;
   font-weight: 500;
 }
+
+.loading-card {
+  color: #6b7280;
+  font-size: 28rpx;
+  text-align: center;
+}

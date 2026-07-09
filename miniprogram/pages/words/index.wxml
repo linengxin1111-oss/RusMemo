@@ -35,6 +35,7 @@
       wx:for="{{visibleWords}}"
       wx:key="russian"
       data-type="{{item.type}}"
+      data-id="{{item._id}}"
       bindtap="openWord"
     >
       <view>
