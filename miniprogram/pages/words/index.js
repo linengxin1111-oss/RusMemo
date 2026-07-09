@@ -9,6 +9,8 @@ Page({
     loading: true,
     loadError: "",
     usingMock: false,
+    emptyTitle: "",
+    emptyDesc: "",
   },
 
   onShow() {
@@ -38,6 +40,12 @@ Page({
       }
 
       this.setWords(result.words, false);
+      if (!result.words.length) {
+        wx.showToast({
+          title: "词库为空，请先运行导入函数",
+          icon: "none",
+        });
+      }
     } catch (error) {
       this.setWords(mockWords, true);
       wx.showToast({
@@ -55,6 +63,7 @@ Page({
       loading: false,
       usingMock,
       loadError: usingMock ? "词库加载失败，当前为示例数据" : "",
+      ...this.getEmptyCopy(this.data.activeTab, words.length),
     });
   },
 
@@ -68,10 +77,40 @@ Page({
 
   switchTab(event) {
     const activeTab = Number(event.currentTarget.dataset.index);
+    const visibleWords = this.filterWords(this.data.words, activeTab);
     this.setData({
       activeTab,
-      visibleWords: this.filterWords(this.data.words, activeTab),
+      visibleWords,
+      ...this.getEmptyCopy(activeTab, this.data.words.length),
     });
+  },
+
+  getEmptyCopy(activeTab, totalCount) {
+    if (totalCount === 0) {
+      return {
+        emptyTitle: "词库还没有数据",
+        emptyDesc: "请先上传并运行 importA1Words 云函数，然后下拉刷新单词本。",
+      };
+    }
+
+    if (activeTab === 1) {
+      return {
+        emptyTitle: "还没有系统词",
+        emptyDesc: "请先运行 importA1Words 云函数导入 A1 初始词库。",
+      };
+    }
+
+    if (activeTab === 2) {
+      return {
+        emptyTitle: "还没有自己的单词",
+        emptyDesc: "添加旅行中常用的俄语词，后面会一起复习。",
+      };
+    }
+
+    return {
+      emptyTitle: "这里还没有单词",
+      emptyDesc: "导入系统词库或添加自己的单词后，会显示在这里。",
+    };
   },
 
   addWord() {

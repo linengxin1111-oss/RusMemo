@@ -50,8 +50,8 @@
 
   <view class="rm-card rm-empty" wx:else>
     <view class="rm-empty-icon">＋</view>
-    <view class="rm-empty-title">还没有自己的单词</view>
-    <view class="rm-empty-desc">添加旅行中常用的俄语词，后面会一起复习。</view>
+    <view class="rm-empty-title">{{emptyTitle}}</view>
+    <view class="rm-empty-desc">{{emptyDesc}}</view>
   </view>
 
   <button class="floating-add" bindtap="addWord">+ 添加单词</button>
