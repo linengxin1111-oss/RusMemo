@@ -108,7 +108,7 @@ function isDueProgress(progress, now) {
   return new Date(progress.next_review_at).getTime() <= now.getTime();
 }
 
-function pickStudyWords(words, progressList, limit, now) {
+function pickStudyWords(words, progressList, limit, now, mode) {
   const progressByWordId = progressList.reduce((map, progress) => {
     map[progress.word_id] = progress;
     return map;
@@ -118,7 +118,15 @@ function pickStudyWords(words, progressList, limit, now) {
   const newWords = [];
   const fallbackWords = [];
 
-  words.forEach((word) => {
+  const candidateWords =
+    mode === "wrong"
+      ? words.filter((word) => {
+          const progress = progressByWordId[word._id];
+          return progress && Number(progress.wrong_count || 0) > 0;
+        })
+      : words;
+
+  candidateWords.forEach((word) => {
     const progress = progressByWordId[word._id];
 
     if (!progress) {
@@ -163,6 +171,7 @@ function pickStudyWords(words, progressList, limit, now) {
 exports.main = async (event = {}) => {
   const wxContext = cloud.getWXContext();
   const limit = Math.min(Math.max(Number(event.limit) || 10, 1), 20);
+  const mode = event.mode === "wrong" ? "wrong" : "normal";
   const now = new Date();
 
   const [wordResult, progressResult] = await Promise.all([
@@ -192,11 +201,12 @@ exports.main = async (event = {}) => {
 
   const words = wordResult.data.filter((word) => word.russian_word && word.chinese_meaning);
 
-  const studyWords = pickStudyWords(words, progressResult.data, limit, now).map(toStudyWord);
+  const studyWords = pickStudyWords(words, progressResult.data, limit, now, mode).map(toStudyWord);
   const questions = buildQuestions(studyWords, limit);
 
   return {
     success: true,
+    mode,
     total: questions.length,
     dueCount: studyWords.filter((word) => word.studyStatus === "review").length,
     newCount: studyWords.filter((word) => word.studyStatus === "new").length,

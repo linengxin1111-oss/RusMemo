@@ -6,16 +6,35 @@
   </view>
 
   <view class="tabs">
-    <view class="tab active">全部</view>
-    <view class="tab">今天</view>
-    <view class="tab">本周</view>
-    <view class="tab">本月</view>
+    <view
+      class="tab {{activeFilter === item.value ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="value"
+      data-value="{{item.value}}"
+      bindtap="switchFilter"
+    >
+      {{item.label}}
+    </view>
   </view>
 
-  <view class="word-count">共 24 个单词</view>
+  <view class="study-notice" wx:if="{{loadError}}">{{loadError}}</view>
 
-  <view class="rm-list">
-    <view class="rm-list-item" wx:for="{{words}}" wx:key="russian">
+  <view class="word-count">共 {{total}} 个单词</view>
+
+  <view class="rm-empty" wx:if="{{loading}}">
+    <view class="rm-empty-icon">···</view>
+    <view class="rm-empty-title">正在读取错词</view>
+    <view class="rm-empty-desc">根据你的答题记录整理需要复习的单词</view>
+  </view>
+
+  <view class="rm-empty" wx:elif="{{!words.length}}">
+    <view class="rm-empty-icon">✓</view>
+    <view class="rm-empty-title">暂时没有错词</view>
+    <view class="rm-empty-desc">继续保持，答错的单词会自动出现在这里</view>
+  </view>
+
+  <view class="rm-list" wx:else>
+    <view class="rm-list-item" wx:for="{{words}}" wx:key="_id">
       <view>
         <view class="rm-word">{{item.russian}}</view>
         <view class="rm-meaning">{{item.meaning}}</view>

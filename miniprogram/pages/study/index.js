@@ -29,6 +29,9 @@ Page({
   },
 
   loadStudySession() {
+    const mode = wx.getStorageSync("studyMode") || "normal";
+    wx.removeStorageSync("studyMode");
+
     this.setData({
       loading: true,
       loadError: "",
@@ -38,12 +41,28 @@ Page({
       name: "getStudySession",
       data: {
         limit: 10,
+        mode,
       },
       success: (res) => {
         const result = res.result || {};
         const questions = Array.isArray(result.questions) ? result.questions : [];
 
         if (!result.success || !questions.length) {
+          if (mode === "wrong") {
+            this.setData({
+              loading: false,
+              loadError: "",
+              questions: [],
+              total: 0,
+            });
+            this.renderQuestion(0);
+            wx.showToast({
+              title: "暂无错词可复习",
+              icon: "none",
+            });
+            return;
+          }
+
           this.useFallbackQuestions("还没有可学习的单词，先用示例题练一下");
           return;
         }
