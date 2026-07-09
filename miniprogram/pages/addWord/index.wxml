@@ -24,10 +24,6 @@
       <view class="field-label">例句（可选）</view>
       <textarea class="rm-textarea" placeholder="请输入例句" placeholder-class="rm-input-placeholder" data-field="example" bindinput="onInput"></textarea>
     </view>
-    <view class="field">
-      <view class="field-label">来源（可选）</view>
-      <input class="rm-input" placeholder="选择来源" placeholder-class="rm-input-placeholder" data-field="source" bindinput="onInput" />
-    </view>
   </view>
 
   <button class="rm-primary-button save-button {{saving ? 'disabled' : ''}}" loading="{{saving}}" bindtap="saveWord">

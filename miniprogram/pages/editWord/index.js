@@ -10,7 +10,6 @@ Page({
       chinese_meaning: "",
       part_of_speech: "",
       example: "",
-      source: "",
     },
   },
 
@@ -61,7 +60,6 @@ Page({
           chinese_meaning: result.word.chinese_meaning || "",
           part_of_speech: result.word.part_of_speech || "",
           example: result.word.example || "",
-          source: result.word.source || "",
         },
         loading: false,
       });

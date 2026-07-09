@@ -37,7 +37,7 @@ Stores system A1 words and user-created words.
 | `chinese_meaning` | string | yes | - | Chinese meaning |
 | `example` | string | no | `""` | Russian example sentence |
 | `example_translation` | string | no | `""` | Chinese translation |
-| `source` | string | yes | `system` | `system` or `user` |
+| `source` | string | yes | `system` | Internal field: `system` or `user`; not editable in the UI |
 | `level` | string | no | `A1` | Word level |
 | `is_deleted` | boolean | yes | `false` | Soft delete flag |
 | `created_at` | date | yes | server date | Creation time |

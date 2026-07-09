@@ -28,10 +28,6 @@
       <view class="field-label">例句（可选）</view>
       <textarea class="rm-textarea" value="{{form.example}}" data-field="example" bindinput="onInput"></textarea>
     </view>
-    <view class="field">
-      <view class="field-label">来源（可选）</view>
-      <input class="rm-input" value="{{form.source}}" data-field="source" bindinput="onInput" />
-    </view>
   </view>
 
   <button class="rm-primary-button save-button {{saving ? 'disabled' : ''}}" loading="{{saving}}" bindtap="saveWord" wx:if="{{!loading}}">

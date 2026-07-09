@@ -7,7 +7,6 @@ Page({
       chinese_meaning: "",
       part_of_speech: "",
       example: "",
-      source: "",
     },
   },
 
