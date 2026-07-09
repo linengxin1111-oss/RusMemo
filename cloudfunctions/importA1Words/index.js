@@ -23,52 +23,52 @@ function normalizeWord(rawWord) {
 }
 
 exports.main = async () => {
+  const normalizedWords = words.map(normalizeWord);
   const now = db.serverDate();
-  const result = {
-    success: true,
-    total: words.length,
-    inserted: 0,
-    skipped: 0,
-    failed: 0,
-    errors: [],
-  };
 
-  for (const rawWord of words) {
-    const word = normalizeWord(rawWord);
+  const existingResult = await wordCollection
+    .where({
+      source: "system",
+      level: "A1",
+    })
+    .limit(1000)
+    .get();
 
-    try {
-      const existing = await wordCollection
-        .where({
-          russian_word: word.russian_word,
-          source: "system",
-          level: "A1",
-        })
-        .limit(1)
-        .get();
+  const existingWords = new Set(existingResult.data.map((word) => word.russian_word));
+  const wordsToInsert = normalizedWords.filter((word) => !existingWords.has(word.russian_word));
 
-      if (existing.data.length) {
-        result.skipped += 1;
-        continue;
-      }
-
-      await wordCollection.add({
+  const insertResults = await Promise.allSettled(
+    wordsToInsert.map((word) =>
+      wordCollection.add({
         data: {
           ...word,
           created_at: now,
           updated_at: now,
         },
-      });
+      })
+    )
+  );
 
-      result.inserted += 1;
-    } catch (error) {
-      result.failed += 1;
-      result.errors.push({
-        russian_word: word.russian_word,
-        message: error && error.message ? error.message : String(error),
-      });
-    }
-  }
+  const errors = insertResults
+    .map((result, index) => ({
+      result,
+      word: wordsToInsert[index],
+    }))
+    .filter((item) => item.result.status === "rejected")
+    .map((item) => ({
+      russian_word: item.word.russian_word,
+      message:
+        item.result.reason && item.result.reason.message
+          ? item.result.reason.message
+          : String(item.result.reason),
+    }));
 
-  result.success = result.failed === 0;
-  return result;
+  return {
+    success: errors.length === 0,
+    total: normalizedWords.length,
+    inserted: insertResults.filter((result) => result.status === "fulfilled").length,
+    skipped: normalizedWords.length - wordsToInsert.length,
+    failed: errors.length,
+    errors,
+  };
 };
